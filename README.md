@@ -1,6 +1,6 @@
 # Protocolo Stop & Wait con Capa de Entrelazamiento Simulado
 
-He adaptado el protocolo **Stop & Wait** de una práctica de laboratorio para simular **Teleportación Cuántica**. 
+He adaptado el protocolo **Stop & Wait** de una práctica de laboratorio (Práctica 5) para simular **Teleportación Cuántica**. 
 
 Para el entrelazamiento, uso un generador aleatorio con **semilla compartida**. Los datos se cifran con **XOR** antes de enviarse, simulando la medición física: por la red solo viaja "ruido" y solo el receptor, con la misma semilla, puede reconstruir el mensaje original.
 
