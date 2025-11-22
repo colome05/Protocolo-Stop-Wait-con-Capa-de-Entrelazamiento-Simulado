@@ -15,7 +15,7 @@ En lugar de simplemente comprimir o enviar el dato tal cual, el código combina 
 ### 2. La Red (El Canal Clásico)
 Para mover esa información, utilizamos el protocolo estándar **Stop & Wait**. Lo que viaja por el cable es ese byte "transformado".
 
-* **Seguridad:** Si ponemos un *sniffer* (Wireshark) en el canal, lo único que veremos son números aleatorios sin sentido. El dato original viaja oculto tras esa aleatoriedad, simulando que sin la otra parte del par entrelazado, la información es indescifrable.
+* **Seguridad:** Si ponemos un *sniffer* en el canal, lo único que veremos son números aleatorios sin sentido. El dato original viaja oculto tras esa aleatoriedad, simulando que sin la otra parte del par entrelazado, la información es indescifrable.
 
 ### 3. El Receptor (Reconstrucción y Corrección)
 Al recibir el byte, el receptor entra en juego. Como comparte la **misma semilla inicial** que el emisor (lo que representa tener la otra mitad del par entrelazado), genera exactamente la misma secuencia de números aleatorios.
