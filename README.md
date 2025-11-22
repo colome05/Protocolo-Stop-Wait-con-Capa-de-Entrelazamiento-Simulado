@@ -26,4 +26,16 @@ Al recibir el byte, el receptor entra en juego. Como comparte la **misma semilla
 ### Resultado
 Gracias a que la operación XOR es matemáticamente reversible, la recuperación es exacta, bit a bit. Si envías un `255`, al otro lado aparece un `255`. 
 
+---
+
+### 🔐 Nota Técnica: ¿Es esto un Cifrado Vernam?
+
+Desde un punto de vista estrictamente criptográfico, esta implementación puede verse como una variante del **Cifrado Vernam**, donde la información se oculta aplicando una clave mediante XOR.
+
+Sin embargo, la **diferencia conceptual** clave reside en el origen de esa clave:
+* En un Vernam clásico, la clave debe intercambiarse previamente de forma segura.
+* En esta simulación, la **semilla fija compartida** actúa como el **par de fotones entrelazados**.
+
+Es decir, la semilla es un recurso preexistente en ambos extremos que permite generar correlaciones perfectas (la misma secuencia aleatoria) sin necesidad de transmitir la clave por el canal en cada envío, emulando así la naturaleza de la "no-localidad" cuántica.
+
 > **Conclusión:** El test de la práctica da el visto bueno porque logramos el **100% de integridad**: hemos cumplido con la simulación física (protegiendo el dato por correlación) y con el requisito de la práctica (el dato llega perfecto).
