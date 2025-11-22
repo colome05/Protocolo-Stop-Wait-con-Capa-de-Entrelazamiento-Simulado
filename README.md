@@ -38,4 +38,4 @@ Sin embargo, la **diferencia conceptual** clave reside en el origen de esa clave
 * En un Vernam clásico, la clave debe intercambiarse previamente de forma segura.
 * En esta simulación, la **semilla fija compartida** actúa como el **par de fotones entrelazados**.
 
-Es decir, la semilla es un recurso preexistente en ambos extremos que permite generar correlaciones perfectas (la misma secuencia aleatoria) sin necesidad de transmitir la clave por el canal en cada envío, emulando así la naturaleza de la "no-localidad" cuántica.
+Es decir, la semilla es un recurso preexistente en ambos extremos que permite generar correlaciones perfectas (la misma secuencia aleatoria) sin necesidad de transmitir la clave por el canal en cada envío, emulando así la naturaleza de la "no-localidad" cuántica. Aún así, puede ser mejorable en el aspecto de compartición de clave, ya que en la realidad existe un hand-shake (Protocolo BB84) en el cual se negocia la clave sin que nadie la intercepte. Queda pendiente de ampliación. 
