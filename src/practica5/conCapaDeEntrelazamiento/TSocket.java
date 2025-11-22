@@ -70,6 +70,7 @@ public class TSocket extends TSocket_base {
                 TCPSegment seg = segmentize(classicalPayload, 0, classicalPayload.length);
 
                 network.send(seg);
+                
 
                 // Como estos bits son clásicos, podemos retransmitirlos sin violar el teorema de no-clonación.
                 startRTO(seg);
