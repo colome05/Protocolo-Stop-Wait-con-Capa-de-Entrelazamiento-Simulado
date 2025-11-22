@@ -39,3 +39,23 @@ Sin embargo, la **diferencia conceptual** clave reside en el origen de esa clave
 * En esta simulación, la **semilla fija compartida** actúa como el **par de fotones entrelazados**.
 
 Es decir, la semilla es un recurso preexistente en ambos extremos que permite generar correlaciones perfectas (la misma secuencia aleatoria) sin necesidad de transmitir la clave por el canal en cada envío, emulando así la naturaleza de la "no-localidad" cuántica. Aún así, puede ser mejorable en el aspecto de compartición de clave, ya que en la realidad existe un hand-shake (Protocolo BB84) en el cual se negocia la clave sin que nadie la intercepte. Queda pendiente de ampliación. 
+
+---
+
+## 📚 Fundamento Teórico
+
+Esta implementación se basa en la equivalencia formal entre la **Teleportación Cuántica** y el **Cifrado Vernam Cuántico** (*Quantum One-Time Pad*), descrita por **Boykin y Roychowdhury (2003)**.
+
+En ambos casos, el mensaje original ($M$) se combina con un recurso compartido aleatorio ($K$, que representa el entrelazamiento), resultando en un texto cifrado que es estadísticamente indistinguible del ruido para cualquier observador que no posea $K$:
+
+$$C = M \oplus K$$
+
+La recuperación se realiza mediante la operación inversa:
+
+$$C \oplus K = M$$
+
+### Aplicación en el Código
+En nuestra simulación:
+* **$M$ (Mensaje):** Es el dato útil que queremos transmitir.
+* **$K$ (Clave/Entrelazamiento):** Es el byte generado por la **semilla fija compartida**. Esta semilla actúa como el par de fotones entrelazados preexistentes entre Alice y Bob.
+* **$C$ (Cifrado):** Es el tráfico que viaja por el protocolo Stop & Wait, apareciendo como aleatorio en la red.
