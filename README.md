@@ -32,7 +32,7 @@ Gracias a que la operación XOR es matemáticamente reversible, la recuperación
 
 ### 🔐 Nota Técnica: ¿Es esto un Cifrado Vernam?
 
-Desde un punto de vista estrictamente criptográfico, esta implementación puede verse como una variante del **Cifrado Vernam** (o *One-Time Pad*), donde la información se oculta aplicando una clave mediante XOR.
+Desde un punto de vista estrictamente criptográfico, esta implementación puede verse como una variante del **Cifrado Vernam**, donde la información se oculta aplicando una clave mediante XOR.
 
 Sin embargo, la **diferencia conceptual** clave reside en el origen de esa clave:
 * En un Vernam clásico, la clave debe intercambiarse previamente de forma segura.
