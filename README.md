@@ -8,7 +8,7 @@ Esta implementación se basa en la equivalencia formal entre la **Teleportación
 
 La premisa es que el mensaje original ($M$) se combina con un recurso compartido aleatorio ($K$, que representa el entrelazamiento), resultando en un texto cifrado ($C$) estadísticamente indistinguible del ruido para quien no posea $K$.
 
-$$C = M \oplus K \quad \xrightarrow{\text{Red}} \quad M = C \oplus K$$
+$$C = M \oplus K \quad \xrightarrow{\text{Red}} \quad M = C \oplus K$$ 
 
 ## ⚙️ Funcionamiento y Analogías
 
