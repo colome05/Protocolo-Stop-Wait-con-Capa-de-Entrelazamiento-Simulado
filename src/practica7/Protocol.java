@@ -38,7 +38,7 @@ public class Protocol extends Protocol_base {
             return null;
         } finally {
             lk.unlock();
-        }
+        } 
     }
 
 }
