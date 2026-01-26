@@ -5,6 +5,7 @@ import practica1.CircularQ.CircularQueue;
 import util.Const;
 import util.TCPSegment;
 import util.TSocket_base;
+import java.util.Random;
 
 /**
  * Connection oriented Protocol Control Block.
@@ -58,7 +59,12 @@ public class TSocket extends TSocket_base {
 
   protected int state;
   protected CircularQueue<TSocket> acceptQueue;
-
+  
+  // init Quantum variables
+  protected long negotiatedSeed = 0;
+  protected String myBitsStr;
+  protected String myBasesStr;
+  
   // States of FSM:
   protected final static int  CLOSED      = 0,
                               LISTEN      = 1,
@@ -75,6 +81,14 @@ public class TSocket extends TSocket_base {
     state = CLOSED;
     p.addActiveTSocket(this);
   }
+  
+  protected void setSeed(long seed) {
+      this.negotiatedSeed = seed;
+  }
+  
+  public long getSeed() {
+      return this.negotiatedSeed;
+  }
 
   @Override
   public void connect() {
@@ -87,6 +101,13 @@ public class TSocket extends TSocket_base {
         SYN.setSyn(true);
         SYN.setDestinationPort(remotePort); //(sembla estar bé)
         SYN.setSourcePort(localPort);
+        
+        myBitsStr = genQubits(64);
+        myBasesStr = genQubits(64);
+        
+        String payload = myBitsStr + ":" + myBasesStr;
+        SYN.setData(payload.getBytes()); //necesario para pasar la información, al otro lado hace el proceso inverso
+        
         network.send(SYN);
         printSndSeg(SYN);
         
@@ -96,11 +117,42 @@ public class TSocket extends TSocket_base {
             appCV.awaitUninterruptibly();
         }
         
-        //algo més ?? 
+        log.printRED("Cliente: Semilla BB84: " + negotiatedSeed);
         
     } finally {
       lock.unlock();
     }
+  }
+  
+  protected static String genQubits(int n) {
+      String s = "";
+      Random r = new Random();
+      
+      for (int i = 0; i < n; i++) {
+          int bit = r.nextInt(2);
+          s = s + bit; 
+      }
+      return s;
+  }
+  
+  protected static long calculateKey(String bits, String basesLocal, String basesRemota) {
+      String claveBinaria = ""; 
+
+      for (int i = 0; i < bits.length(); i++) {
+          
+          char miBase = basesLocal.charAt(i);
+          char suBase = basesRemota.charAt(i);
+
+          if (miBase == suBase) {
+              claveBinaria = claveBinaria + bits.charAt(i);
+          }
+          
+          if (claveBinaria.length() >= 63) {
+              break;
+          }
+      }
+
+      return Long.parseLong(claveBinaria, 2);
   }
 
   @Override
@@ -146,6 +198,15 @@ public class TSocket extends TSocket_base {
 
         case SYN_SENT: {
           if (rseg.isSyn()) {
+              
+            byte[] data = rseg.getData();
+            if (data != null) {
+                String serverBases = new String(data);
+                
+                negotiatedSeed = calculateKey(myBitsStr, myBasesStr, serverBases);
+                
+            }
+            
             state = ESTABLISHED;
             appCV.signalAll();
           }

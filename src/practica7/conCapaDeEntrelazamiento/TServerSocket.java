@@ -118,6 +118,25 @@ public class TServerSocket extends TSocket_base {
                         TSocket sc = new TSocket(proto, localPort, rseg.getSourcePort());
                         sc.state = ESTABLISHED;
 
+                        byte[] data = rseg.getData();
+                        String myBasesStr = ""; 
+                        
+                        if (data != null) {
+                            String payload = new String(data);
+                            String[] parts = payload.split(":");
+                            
+                            if (parts.length == 2) {
+                                String clientBits = parts[0];
+                                String clientBases = parts[1];
+                                
+                                myBasesStr = TSocket.genQubits(64);
+                                
+                                long seed = TSocket.calculateKey(clientBits, clientBases, myBasesStr);
+                                sc.setSeed(seed);
+                                log.printRED("\t\t\t\t\t\t\t    Server: Semilla calculada: " + seed);
+                            }
+                        }
+                                                
                         proto.addActiveTSocket(sc);
                         acceptQueue.put(sc);
                         appCV.signalAll();
@@ -126,6 +145,9 @@ public class TServerSocket extends TSocket_base {
                         SYN.setSyn(true);
                         SYN.setDestinationPort(rseg.getSourcePort());
                         SYN.setSourcePort(localPort);
+                        
+                        SYN.setData(myBasesStr.getBytes());
+                        
                         network.send(SYN);
                         printSndSeg(SYN);
 
