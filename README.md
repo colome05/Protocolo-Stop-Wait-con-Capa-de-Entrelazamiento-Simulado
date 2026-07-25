@@ -4,7 +4,7 @@ Este proyecto extiende la práctica de laboratorio de sockets TCP para implement
 
 El sistema fusiona dos conceptos fundamentales de la física cuántica aplicada a la información: el protocolo **BB84** para la negociación segura de claves y la **Teleportación Cuántica** (Cifrado Vernam) para la transmisión confidencial de datos.
 
-## 📚 Fundamento Teórico
+## Fundamento Teórico
 
 Esta implementación se sustenta en:
 
@@ -15,7 +15,7 @@ $$C = M \oplus K \quad \xrightarrow{\text{Red}} \quad M = C \oplus K$$
 
 ---
 
-## ⚙️ Arquitectura del Sistema
+## Arquitectura del Sistema
 
 El protocolo se divide en dos fases claramente diferenciadas:
 
@@ -54,7 +54,7 @@ Una vez establecida la `negotiatedSeed`, se inicializan los generadores aleatori
 
 ---
 
-## 🔐 Mejoras de Seguridad Implementadas
+## Mejoras de Seguridad Implementadas
 
 A diferencia de implementaciones con semillas estáticas, esta versión ofrece:
 
@@ -62,7 +62,7 @@ A diferencia de implementaciones con semillas estáticas, esta versión ofrece:
 * **One-Time Pad (Libreta de un solo uso):** La clave de cifrado ($K$) tiene la misma longitud que el mensaje y nunca se reutiliza, garantizando secreto perfecto dentro de la simulación.
 * **Simulación de Qubits:** Se utilizan cadenas de caracteres y operaciones lógicas para emular el comportamiento de filtrado de bases, demostrando cómo se puede establecer un secreto compartido sobre un canal público.
 
-## 🚀 Ejecución
+## Ejecución
 
 La simulación es autocontenida y se ejecuta directamente desde el entorno de desarrollo.
 
